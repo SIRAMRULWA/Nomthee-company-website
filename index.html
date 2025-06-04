@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomthee - Proudly South African, Proudly Delicious</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #d32f2f 0%, #f57c00 100%);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23d32f2f" width="1200" height="800"/><circle fill="%23f57c00" cx="300" cy="200" r="100" opacity="0.3"/><circle fill="%23ff9800" cx="900" cy="400" r="150" opacity="0.2"/><circle fill="%23ffb74d" cx="600" cy="600" r="80" opacity="0.4"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            animation: pulse 2s infinite;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: glow 2s infinite alternate;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #d32f2f;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #d32f2f, #f57c00);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+            padding: 5rem 2rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #d32f2f, #f57c00);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 5rem 2rem;
+            background: #f8f8f8;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border-color: #f57c00;
+        }
+
+        .product-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #d32f2f, #f57c00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .product-card h3 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f57c00;
+            margin: 1rem 0;
+        }
+
+        /* Order Section */
+        .order {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #d32f2f 0%, #f57c00 100%);
+            color: white;
+        }
+
+        .order-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 5rem 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            height: 200px;
+            background: linear-gradient(45deg, #d32f2f, #f57c00);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 2rem;
+            background: #f8f8f8;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: #f57c00;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+        }
+
+        .testimonial-author {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            color: white;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #d32f2f, #f57c00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3); }
+            to { box-shadow: 0 4px 25px rgba(255, 107, 53, 0.6); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hide scrollbar for mobile */
+        .nav-links {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">🔥 Nomthee</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#order">Order</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>🔥 Nomthee</h1>
+            <p class="tagline">Proudly South African, Proudly Delicious</p>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Experience the authentic taste of premium South African wors, grilled to perfection with love and tradition.</p>
+            <a href="#order" class="cta-button">Order Now 🌭</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section">
+            <h2>About Nomthee</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p><strong>Welcome to Nomthee</strong> – where passion meets tradition in every bite! Our story began with a simple belief: that authentic South African wors should be made with pride, using only the finest local ingredients and time-honored recipes passed down through generations.</p>
+                    
+                    <p>What makes our wors special? We source our meat from trusted local farmers, blend our spices with care, and craft each batch by hand. Every piece of wors tells a story of South African heritage, community spirit, and the joy of sharing great food with the people you love.</p>
+                    
+                    <p>From backyard braais to family celebrations, Nomthee brings people together around the flames of tradition and the warmth of authentic flavors.</p>
+                </div>
+                <div class="about-image">
+                    <div>🥩 Premium SA Wors<br>Made with Pride 🇿🇦</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="section">
+            <h2>Our Premium Wors</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-icon">🌭</div>
+                    <h3>Traditional Wors</h3>
+                    <p>Classic South African recipe with perfectly balanced spices. A true taste of home.</p>
+                    <div class="price">R85 / 500g</div>
+                    <div class="price">R160 / 1kg</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🌶️</div>
+                    <h3>Spicy Wors</h3>
+                    <p>For those who like it hot! Extra chili and spices for a fiery kick.</p>
+                    <div class="price">R60 / 500g</div>
+                    <div class="price">R170 / 1kg</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🧀</div>
+                    <h3>Cheese-Filled Wors</h3>
+                    <p>Indulgent wors with melted cheese center. Perfect for special occasions.</p>
+                    <div class="price">R100 / 500g</div>
+                    <div class="price">R190 / 1kg</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🎉</div>
+                    <h3>Party Pack Special</h3>
+                    <p>Mix of all three varieties. Perfect for events and celebrations!</p>
+                    <div class="price">R450 / 3kg Mix</div>
+                    <div style="color: #d32f2f; font-weight: bold;">Save R20!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="order">
+        <div class="section">
+            <h2 style="color: white;">Order Online</h2>
+            <form class="order-form" onsubmit="handleOrder(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product">Choose Your Wors</label>
+                    <select id="product" name="product" required>
+                        <option value="">Select your wors...</option>
+                        <option value="traditional-500g">Traditional Wors - 500g (R85)</option>
+                        <option value="traditional-1kg">Traditional Wors - 1kg (R160)</option>
+                        <option value="spicy-500g">Spicy Wors - 500g (R90)</option>
+                        <option value="spicy-1kg">Spicy Wors - 1kg (R170)</option>
+                        <option value="cheese-500g">Cheese-Filled Wors - 500g (R100)</option>
+                        <option value="cheese-1kg">Cheese-Filled Wors - 1kg (R190)</option>
+                        <option value="party-pack">Party Pack Special - 3kg Mix (R450)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="delivery">Delivery Option</label>
+                    <select id="delivery" name="delivery" required>
+                        <option value="">Choose delivery option...</option>
+                        <option value="delivery">Home Delivery (+R25)</option>
+                        <option value="pickup">Pickup (Free)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <textarea id="address" name="address" rows="3" placeholder="Enter your full address (required for delivery)"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="payment">Payment Method</label>
+                    <select id="payment" name="payment" required>
+                        <option value="">Select payment method...</option>
+                        <option value="eft">EFT Transfer</option>
+                        <option value="cash">Cash on Delivery</option>
+                        <option value="mobile">Mobile Payment</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Place Order 🔥</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="section">
+            <h2>Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">🔥 Sizzling on the Grill</div>
+                <div class="gallery-item">🌭 Fresh Wors Ready</div>
+                <div class="gallery-item">👨‍🍳 Master Craftsman</div>
+                <div class="gallery-item">🎉 Happy Customers</div>
+                <div class="gallery-item">🏪 At the Market</div>
+                <div class="gallery-item">🍽️ Braai Time</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="section">
+            <h2>What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p>Best wors I've ever tasted! The traditional flavor reminds me of my ouma's cooking. Nomthee is now our go-to for all family braais.</p>
+                    <div class="testimonial-author">- Sarah M., Johannesburg</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>Ordered the party pack for my son's birthday. Everyone was asking where we got such amazing wors. Quality is outstanding!</p>
+                    <div class="testimonial-author">- Thabo K., Pretoria</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>The cheese-filled wors is absolutely incredible. Perfect for special occasions. Fast delivery and great customer service too!</p>
+                    <div class="testimonial-author">- Michelle D., Cape Town</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section">
+            <h2 style="color: white;">Get In Touch</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>Phone & WhatsApp</h3>
+                    <p>+27 82 123 4567</p>
+                    <p>Available: 8AM - 6PM</p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>orders@nomthee.co.za</p>
+                    <p>info@nomthee.co.za</p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <h3>Location</h3>
+                    <p>Randburg, Gauteng</p>
+                    <p>Delivery Available</p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>Social Media</h3>
+                    <p>@NomtheeWors</p>
+                    <p>Facebook | Instagram</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Nomthee. Proudly South African, Proudly Delicious. All rights reserved.</p>
+        <p>🔥 Made with love and tradition 🇿🇦</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Handle order form submission
+        function handleOrder(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const orderData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                orderData[key] = value;
+            }
+            
+            // Create WhatsApp message
+            const message = `🔥 *New Nomthee Order* 🔥
+            
+*Customer Details:*
+Name: ${orderData.name}
+Phone: ${orderData.phone}
+Email: ${orderData.email}
+
+*Order Details:*
+Product: ${orderData.product}
+Quantity: ${orderData.quantity}
+Delivery: ${orderData.delivery}
+Address: ${orderData.address}
+Payment: ${orderData.payment}
+
+*Message from Nomthee:* Thank you for choosing our proudly South African wors! We'll contact you shortly to confirm your order. 🌭🇿🇦`;
+            
+            // WhatsApp link (replace with actual WhatsApp number)
+            const whatsappUrl = `https://wa.me/27821234567?text=${encodeURIComponent(message)}`;
+            
+            // Show confirmation
+            alert('Order submitted! You will be redirected to WhatsApp to complete your order. 🔥');
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(211, 47, 47, 0.95) 0%, rgba(245, 124, 0, 0.95) 100%)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #d32f2f 0%, #f57c00 100%)';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Add floating animation to product cards
+        document.querySelectorAll('.product-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+        });
+    </script>
+</body>
+</html>
