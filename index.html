@@ -67,6 +67,10 @@
             transform: translateY(-2px);
         }
 
+        .hamburger {
+            display: none;
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -422,10 +426,70 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 20px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                z-index: 1001;
+            }
+
+            .hamburger span {
+                width: 100%;
+                height: 3px;
+                background: white;
+                transition: all 0.3s ease;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(135deg, rgba(211, 47, 47, 0.95) 0%, rgba(245, 124, 0, 0.95) 100%);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
-            
+
+            .nav-links.active {
+                display: flex;
+                transform: translateX(0);
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+                padding: 1rem;
+                display: block;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -456,6 +520,11 @@
     <header>
         <nav>
             <div class="logo">🔥 Nomthee</div>
+            <button class="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -681,7 +750,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Nomthee. Proudly South African, Proudly Delicious. All rights reserved.</p>
+        <p>© 2025 Nomthee. Proudly South African, Proudly Delicious. All rights reserved.</p>
         <p>🔥 Made with love and tradition 🇿🇦</p>
     </footer>
 
@@ -777,6 +846,31 @@ Payment: ${orderData.payment}
         // Add floating animation to product cards
         document.querySelectorAll('.product-card').forEach((card, index) => {
             card.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
         });
     </script>
 </body>
